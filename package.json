@@ -4,7 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src/** test/**",
+    "build": "NODE_ENV=production BABEL_ENV=production webpack --config webpack.config.babel.js",
+    "test": "karma start --single-run",
+    "watch": "karma start"
   },
   "repository": {
     "type": "git",
@@ -23,7 +26,6 @@
     "url": "https://github.com/tsirlucas/redux-pure-subscribe/issues"
   },
   "homepage": "https://github.com/tsirlucas/redux-pure-subscribe#readme",
-
   "devDependencies": {
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
