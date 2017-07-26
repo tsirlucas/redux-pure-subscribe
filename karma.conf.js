@@ -56,7 +56,7 @@ module.exports = function (config) {
     },
     browserify: {
       transform: [
-        ['babelify', {plugins: ["transform-object-assign"]}],
+        ['babelify'],
         ['browserify-istanbul', {
           instrumenterConfig: {
             embedSource: true   // this is important for HTML reports
