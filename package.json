@@ -1,7 +1,7 @@
 {
   "name": "redux-pure-subscribe",
   "version": "0.1.0",
-  "description": "",
+  "description": "A store subscribe function that checks if state has changed before trigger",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/** test/**",
