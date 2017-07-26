@@ -1,0 +1,26 @@
+{
+  "name": "redux-pure-subscribe",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsirlucas/redux-pure-subscribe.git"
+  },
+  "keywords": [
+    "redux",
+    "pure",
+    "subscribe",
+    "store",
+    "immutable"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tsirlucas/redux-pure-subscribe/issues"
+  },
+  "homepage": "https://github.com/tsirlucas/redux-pure-subscribe#readme"
+}
