@@ -1,5 +1,7 @@
 # Redux pure subscribe
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tsirlucas/redux-pure-subscribe.svg)](https://greenkeeper.io/)
+
 A store subscribe function that checks if state has changed before trigger.
 
 [![build status](https://img.shields.io/travis/tsirlucas/redux-pure-subscribe/master.svg)](https://travis-ci.org/tsirlucas/redux-pure-subscribe)
