@@ -172,22 +172,20 @@ describe('pureSubscribe function', () => {
   });
 
   it('should detect changes on injected async reducers', () => {
-    const spied = {callback: () => 'testing subscribe trigger'};
+
+    // Necessary for now once spyOn only gets calls after some time and I cant call it before inject
+    let triggered = false;
+
+    const callback = () => triggered = true;
 
     const store = configureStoreToAsyncReducers();
 
-    pureSubscribe(store, spied.callback);
+    pureSubscribe(store, callback);
 
     injectAsyncReducer(store, 'async', asyncReducer);
 
+    store.dispatch({type: 'CHANGE_ASYNC_TREE'});
 
-    spyOn(spied, 'callback');
-
-    // Necessary for now once spyOn only gets calls after some time and I cant call it before inject
-    setTimeout(() => {
-      store.dispatch({type: 'CHANGE_ASYNC_TREE'});
-      expect(spied.callback).toHaveBeenCalled();
-      done();
-    }, 50);
+    expect(triggered).toEqual(true);
   });
 });
