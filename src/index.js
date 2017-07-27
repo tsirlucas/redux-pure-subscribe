@@ -1,21 +1,25 @@
 const shallowEqual = (a, b) => {
   for (let key in a) if (a[key] !== b[key]) return false;
-  for (let key in b) if (!(key in a)) return false;
   return true;
 };
 
 const equalTrees = (currState, nextState, trees) => {
-  trees.forEach((element) => {
-    if (currState[element] !== nextState[element]) return false;
-  });
-  return true;
+  if (trees.constructor === Array) {
+    for (let i = 0; i < trees.length; i++) {
+      let element = trees[i];
+      if (currState[element] !== nextState[element]) return false;
+    }
+    return true;
+  }
+
+  return currState[trees] === nextState[trees];
 };
 
 const changedOnTrees = (currState, nextState, trees) => {
   if (!trees) {
-    return !shallowEqual(currState, nextState);
+    return !shallowEqual(nextState, currState);
   }
-  return equalTrees(currState, nextState, trees);
+  return !equalTrees(currState, nextState, trees);
 };
 
 export const pureSubscribe = (store, onChange, trees) => {
@@ -23,10 +27,10 @@ export const pureSubscribe = (store, onChange, trees) => {
 
   function handleChange() {
     let nextState = store.getState();
-    if (changedOnTrees(currentState, nextState, trees)) {
-      currentState = nextState;
+    if (currentState && changedOnTrees(currentState, nextState, trees)) {
       onChange(currentState);
     }
+    currentState = nextState;
   }
 
   let unsubscribe = store.subscribe(handleChange);
