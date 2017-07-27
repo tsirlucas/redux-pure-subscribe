@@ -187,6 +187,7 @@ describe('pureSubscribe function', () => {
     setTimeout(() => {
       store.dispatch({type: 'CHANGE_ASYNC_TREE'});
       expect(spied.callback).toHaveBeenCalled();
+      done();
     }, 50);
   });
 });
