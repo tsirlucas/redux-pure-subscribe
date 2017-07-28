@@ -5,7 +5,7 @@ const shallowEqual = (a, b) => {
 
 const equalTrees = (currState, nextState, trees) => {
   if (trees.constructor === Array) {
-    for (let i = 0; i < trees.length; i++) {
+    for (let i = 0, l = trees.length; i < l; i++) {
       let element = trees[i];
       if (currState[element] !== nextState[element]) return false;
     }
