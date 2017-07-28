@@ -1,5 +1,9 @@
 const shallowEqual = (a, b) => {
-  for (let key in a) if (a[key] !== b[key]) return false;
+  for (let key in a) {
+    if (a[key] !== b[key]) {
+      return false;
+    }
+  }
   return true;
 };
 
@@ -7,7 +11,9 @@ const equalTrees = (currState, nextState, trees) => {
   if (trees.constructor === Array) {
     for (let i = 0, l = trees.length; i < l; i++) {
       let element = trees[i];
-      if (currState[element] !== nextState[element]) return false;
+      if (currState[element] !== nextState[element]) {
+        return false;
+      }
     }
     return true;
   }
