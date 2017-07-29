@@ -1,6 +1,6 @@
 import {createStore, combineReducers} from 'redux';
 
-import {pureSubscribe} from '../src/index';
+import pureSubscribe from '../src/index';
 
 const tree1Reducer = (state = {person: {name: 'foo'}}, action) => {
   switch (action.type) {

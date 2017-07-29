@@ -28,7 +28,7 @@ const changedOnTrees = (currState, nextState, trees) => {
   return !equalTrees(currState, nextState, trees);
 };
 
-export const pureSubscribe = (store, onChange, trees) => {
+const pureSubscribe = (store, onChange, trees) => {
   let currentState = store.getState();
 
   function handleChange() {
