@@ -28,7 +28,7 @@ immutable lib like [immutable-merge-operators](https://github.com/tsirlucas/immu
 I'ts actually very simple, you just need to import and use passing
 the store as first argument and a cb function as second.
 
-    import pureSubscribe from '../src/index';
+    import pureSubscribe from 'redux-pure-subscribe';
     
     pureSubscribe(store, callback);
     
