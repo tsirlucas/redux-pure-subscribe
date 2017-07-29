@@ -45,3 +45,5 @@ export const pureSubscribe = (store, onChange, trees) => {
   handleChange();
   return unsubscribe;
 };
+
+export default pureSubscribe;
