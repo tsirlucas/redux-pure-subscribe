@@ -33,6 +33,7 @@ export const pureSubscribe = (store, onChange, trees) => {
 
   function handleChange() {
     const nextState = store.getState();
+
     if (changedOnTrees(currentState, nextState, trees)) {
       onChange(nextState);
     }
