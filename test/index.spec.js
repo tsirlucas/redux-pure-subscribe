@@ -66,7 +66,7 @@ describe('pureSubscribe function', () => {
 
     store.dispatch({type: 'CHANGE_TREE_1'});
 
-    expect(spied.callback).toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(2);
 
   });
 
@@ -81,8 +81,43 @@ describe('pureSubscribe function', () => {
 
     store.dispatch({type: 'CHANGE_NOTHING'});
 
-    expect(spied.callback).not.toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(1);
 
+  });
+
+  it('should trigger at least one time to get initial state from store', () => {
+    const spied = {callback: () => 'testing subscribe trigger'};
+
+    const store = createStore(createReducers());
+
+    spyOn(spied, 'callback');
+
+    pureSubscribe(store, spied.callback);
+
+    expect(spied.callback.calls.count()).toBe(1);
+
+  });
+
+  it('Should pass store updated state as parameter to the callback function', () => {
+    let currState = null;
+
+    const callback = (state) => currState = state;
+
+    const store = createStore(createReducers());
+
+    pureSubscribe(store, callback);
+
+    expect(currState).toEqual({
+      tree1: Object({person: Object({name: 'foo'})}),
+      tree2: Object({person: Object({name: 'bar'})})
+    });
+
+    store.dispatch({type: 'CHANGE_TREE_1'});
+
+    expect(currState).toEqual({
+      tree1: Object({person: Object({name: 'fooBar'})}),
+      tree2: Object({person: Object({name: 'bar'})})
+    });
   });
 
   it('should accept path that you want to observe and trigger when it changes', () => {
@@ -96,7 +131,7 @@ describe('pureSubscribe function', () => {
 
     store.dispatch({type: 'CHANGE_TREE_1'});
 
-    expect(spied.callback).toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(2);
   });
 
   it('should accept path that you want to observe and dont trigger when others change', () => {
@@ -110,7 +145,7 @@ describe('pureSubscribe function', () => {
 
     store.dispatch({type: 'CHANGE_TREE_2'});
 
-    expect(spied.callback).not.toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(1);
   });
 
   it('should accept array of paths that you want to observe and trigger when they change', () => {
@@ -124,7 +159,7 @@ describe('pureSubscribe function', () => {
 
     store.dispatch({type: 'CHANGE_TREE_1'});
 
-    expect(spied.callback).toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(2);
   });
 
   it('should accept array of paths that you want to observe and dont trigger when others change', () => {
@@ -138,7 +173,7 @@ describe('pureSubscribe function', () => {
 
     store.dispatch({type: 'CHANGE_TREE_2'});
 
-    expect(spied.callback).not.toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(1);
   });
 
   it('should return unsubscribe method and dont trigger after unsubscribe', () => {
@@ -154,7 +189,7 @@ describe('pureSubscribe function', () => {
 
     store.dispatch({type: 'CHANGE_TREE_2'});
 
-    expect(spied.callback).not.toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(1);
   });
 
   it('should detect injected async reducers', () => {
@@ -168,24 +203,22 @@ describe('pureSubscribe function', () => {
 
     injectAsyncReducer(store, 'async', asyncReducer);
 
-    expect(spied.callback).toHaveBeenCalled();
+    expect(spied.callback.calls.count()).toBe(2);
   });
 
   it('should detect changes on injected async reducers', () => {
-
-    // Necessary for now once spyOn only gets calls after some time and I cant call it before inject
-    let triggered = false;
-
-    const callback = () => triggered = true;
+    const spied = {callback: () => 'testing subscribe trigger'};
 
     const store = configureStoreToAsyncReducers();
 
-    pureSubscribe(store, callback);
+    spyOn(spied, 'callback');
+
+    pureSubscribe(store, spied.callback);
 
     injectAsyncReducer(store, 'async', asyncReducer);
 
     store.dispatch({type: 'CHANGE_ASYNC_TREE'});
 
-    expect(triggered).toEqual(true);
+    expect(spied.callback.calls.count()).toBe(3);
   });
 });

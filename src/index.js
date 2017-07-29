@@ -29,17 +29,20 @@ const changedOnTrees = (currState, nextState, trees) => {
 };
 
 export const pureSubscribe = (store, onChange, trees) => {
-  let currentState;
+  let currentState = store.getState();
 
   function handleChange() {
-    let nextState = store.getState();
-    if (currentState && changedOnTrees(currentState, nextState, trees)) {
-      onChange(currentState);
+    const nextState = store.getState();
+
+    if (changedOnTrees(currentState, nextState, trees)) {
+      onChange(nextState);
     }
     currentState = nextState;
   }
 
-  let unsubscribe = store.subscribe(handleChange);
-  handleChange();
-  return unsubscribe;
+  onChange(currentState);
+
+  return store.subscribe(handleChange);
 };
+
+export default pureSubscribe;
