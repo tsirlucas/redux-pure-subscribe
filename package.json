@@ -47,6 +47,6 @@
     "karma-sauce-launcher": "1.1.0",
     "redux": "3.7.2",
     "watchify": "3.9.0",
-    "webpack": "3.4.1"
+    "webpack": "3.5.1"
   }
 }
