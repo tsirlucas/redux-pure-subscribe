@@ -46,7 +46,7 @@
     "karma-phantomjs-launcher": "1.0.4",
     "karma-sauce-launcher": "1.2.0",
     "redux": "3.7.2",
-    "watchify": "3.11.0",
+    "watchify": "3.11.1",
     "webpack": "4.2.0"
   }
 }
